@@ -84,9 +84,9 @@ class BashWrapperBuilder {
 
         nxf_kill() {
             declare -a ALL_CHILD
-            while read P PP;do
+            ps -e -o pid= -o ppid= | while read P PP;do
                 ALL_CHILD[$PP]+=" $P"
-            done < <(ps -e -o pid= -o ppid=)
+            done
 
             walk() {
                 [[ $1 != $$ ]] && kill $1 2>/dev/null || true

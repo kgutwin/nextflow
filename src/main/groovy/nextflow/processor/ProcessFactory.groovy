@@ -62,7 +62,8 @@ class ProcessFactory {
             'crg': CrgExecutor,
             'bsc': LsfExecutor,
             'condor': CondorExecutor,
-            'cirrus': CirrusExecutor
+					'cirrus': CirrusExecutor,
+					'ihpc': IhpcExecutor
     ]
 
     private final Session session

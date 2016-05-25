@@ -36,7 +36,7 @@ class IhpcExecutor extends SgeExecutor {
 
     @Override
     protected BashWrapperBuilder createBashWrapperBuilder(TaskRun task) {
-        log.debug "Launching process > ${task.name} -- work folder: $folder"
+        log.debug "Launching process > ${task.name}"
 
         // create the wrapper script
         final bean = new TaskBean(task)

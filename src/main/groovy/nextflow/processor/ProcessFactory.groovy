@@ -21,6 +21,7 @@
 package nextflow.processor
 import groovy.util.logging.Slf4j
 import nextflow.Session
+import nextflow.executor.IhpcExecutor
 import nextflow.executor.CirrusExecutor
 import nextflow.executor.CrgExecutor
 import nextflow.executor.Executor

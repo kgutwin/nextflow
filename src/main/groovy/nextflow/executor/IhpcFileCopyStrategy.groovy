@@ -72,7 +72,7 @@ class IhpcFileCopyStrategy extends SimpleFileCopyStrategy {
      */
     @Override
     String stageInputFile( Path path, String targetName ) {
-        def cmd = "#es3 -q -v0 --no-stats sync s3:/${path} ."
+        def cmd = "java -jar /home/karl.gutwin/FastCP.jar s3:/${path} ."
         if( path.name != targetName ) {
             def p = targetName.lastIndexOf('/')
             if( p>0 ) {
@@ -99,7 +99,7 @@ class IhpcFileCopyStrategy extends SimpleFileCopyStrategy {
         if( normalized ) {
             result << ""
             normalized.each {
-                result << "#es3 -q -v0 --no-stats sync $it s3:/${targetDir} || true" // <-- add true to avoid it stops on errors
+                result << "java -jar /home/karl.gutwin/FastCP.jar $it s3:/${targetDir}" 
             }
         }
 
@@ -109,10 +109,11 @@ class IhpcFileCopyStrategy extends SimpleFileCopyStrategy {
     /**
      * {@inheritDoc}
      */
+  /*
     @Override
     String touchFile( Path file ) {
         "#es3 touch s3:/${file}"
-    }
+	}*/
 
     /**
      * {@inheritDoc}
@@ -127,13 +128,13 @@ class IhpcFileCopyStrategy extends SimpleFileCopyStrategy {
      */
     @Override
     String copyFile( String name, Path target ) {
-        "#es3 -q -v 0 --no-stats sync ${name} s3:/${target}"
+        "#copy es3 -q -v 0 --no-stats sync ${name} s3:/${target}"
     }
 
     /**
      * {@inheritDoc}
      */
     String exitFile( Path file ) {
-        "#${file.name} && es3 -q -v 0 --no-stats sync ${file.name} s3:/${file.parent} || true"
+        "${file.name} # && es3 -q -v 0 --no-stats sync ${file.name} s3:/${file.parent} || true"
     }
 }
